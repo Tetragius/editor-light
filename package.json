@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack server --mode development",
-    "build": "webpack --mode production --progress"
+    "dev": "webpack server --env development",
+    "build": "webpack --progress --env production"
   },
   "keywords": [],
   "author": "Ilya CHERTORYLSKY",

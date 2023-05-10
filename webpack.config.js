@@ -2,10 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
-
-module.exports = {
-    mode: isDevelopment ? 'development' : "production",
+module.exports = (env) => ({
+    mode: !env.production ? 'development' : "production",
     stats: 'minimal',
     entry: {
         app: './src/index.tsx',
@@ -24,6 +22,9 @@ module.exports = {
     resolve: {
         extensions: ['.ttf', '.jsx', '.js', '.tsx', '.ts', '.css']
     },
+    optimization: {
+        sideEffects: true
+    },
     module: {
         rules: [
             {
@@ -33,7 +34,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
-                        plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
+                        plugins: [!env.production && require.resolve('react-refresh/babel')].filter(Boolean)
                     }
                 }
             },
@@ -60,8 +61,8 @@ module.exports = {
             scriptLoading: "module"
 
         }),
-        isDevelopment && new ReactRefreshWebpackPlugin()
-    ],
+        !env.production && new ReactRefreshWebpackPlugin()
+    ].filter(Boolean),
     devServer: {
         hot: true,
         client: {
@@ -72,4 +73,4 @@ module.exports = {
             directory: path.resolve(__dirname, './dist')
         }
     }
-}
+})
