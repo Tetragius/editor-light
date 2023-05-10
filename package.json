@@ -8,7 +8,7 @@
     "build": "webpack --mode production --progress"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ilya CHERTORYLSKY",
   "license": "ISC",
   "dependencies": {
     "@babel/standalone": "^7.21.8",

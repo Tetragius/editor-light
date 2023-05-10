@@ -74,7 +74,7 @@ export const Editor: React.FC<Props> = ({ onChangeModel, defaultCode }) => {
                     contextMenuGroupId: "cutcopypaste",
                     contextMenuOrder: 1,
                     run: function (ed) {
-                        navigator.clipboard.writeText(btoa(editorRef.current?.getValue() ?? ''))
+                        navigator.clipboard.writeText(`${location.href}/#${btoa(editorRef.current?.getValue() ?? '')}`)
                     },
                 });
             }
